@@ -3,11 +3,11 @@
  */
 public class Shop {
   private final Counter[] counters;
-  private final Queue entranceQueue;
+  private final Queue<Customer> entranceQueue;
 
   public Shop(int numOfCounters, int entranceQueueLength) {
     this.counters = new Counter[numOfCounters];
-    this.entranceQueue = new Queue(entranceQueueLength);
+    this.entranceQueue = new Queue<Customer>(entranceQueueLength);
 
     for (int i = 0; i < numOfCounters; i++) {
       counters[i] = new Counter(i);
@@ -35,6 +35,6 @@ public class Shop {
     entranceQueue.enq(customer);
   }
   public Customer getNextEntranceCustomer() {
-    return (Customer) entranceQueue.deq();
+    return entranceQueue.deq();
   }
 }
