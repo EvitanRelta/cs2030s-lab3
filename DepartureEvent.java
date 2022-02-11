@@ -1,9 +1,14 @@
 /**
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
-class DepartureEvent extends ShopEvent {
-  public DepartureEvent(double time, Queue entranceQueue, Counter[] counters, Customer customer) {
-    super(time, entranceQueue, counters, customer);
+class DepartureEvent extends Event {
+  private final Shop shop;
+  private final Customer customer;
+
+  public DepartureEvent(double time, Shop shop, Customer customer) {
+    super(time);
+    this.shop = shop;
+    this.customer = customer;
   }
 
   @Override

@@ -1,29 +1,33 @@
 /**
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
-class ServiceEndEvent extends ShopEvent {
-  private Counter counter;
+class ServiceEndEvent extends Event {
+  private final Shop shop;
+  private final Customer customer;
+  private final Counter counter;
 
-  public ServiceEndEvent(double time, Queue entranceQueue, Counter[] counters, Customer customer,
+  public ServiceEndEvent(double time, Shop shop, Customer customer,
       Counter counter) {
-    super(time, entranceQueue, counters, customer);
+    super(time);
+    this.shop = shop;
+    this.customer = customer;
     this.counter = counter;
   }
 
   @Override
   public Event[] simulate() {
     counter.endService();
-    Customer nextCustomer = (Customer) entranceQueue.deq();
+    Customer nextCustomer = shop.getNextEntranceCustomer();
+    DepartureEvent departureEvent = new DepartureEvent(getTime(), shop,
+        customer);
 
     if (nextCustomer == null) {
-      return new Event[] {
-          new DepartureEvent(getTime(), entranceQueue, counters, customer)
-      };
+      return new Event[] { departureEvent };
     }
     
     return new Event[] {
-        new DepartureEvent(getTime(), entranceQueue, counters, customer),
-        new ServiceBeginEvent(getTime(), entranceQueue, counters, nextCustomer, counter)
+        departureEvent,
+        new ServiceBeginEvent(getTime(), shop, nextCustomer, counter)
     };
   }
 
