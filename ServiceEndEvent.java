@@ -17,21 +17,40 @@ class ServiceEndEvent extends Event {
   @Override
   public Event[] simulate() {
     counter.endService();
-    Customer nextCustomer = counter.getNextCustomer();
-    nextCustomer = nextCustomer != null
-        ? nextCustomer
-        : shop.getNextEntranceCustomer();
     DepartureEvent departureEvent = new DepartureEvent(getTime(), shop,
         customer);
+    
+    if (counter.hasQueueLengthZero()) {
+      // Take customers directly from entrance queue.
+      Customer nextEntranceCustomer = shop.getNextEntranceCustomer();
 
+      return nextEntranceCustomer == null
+        ? new Event[] { departureEvent }
+        : new Event[] {
+            departureEvent,
+            new ServiceBeginEvent(getTime(), shop, nextEntranceCustomer, counter)
+        };
+    }
+
+    Customer nextCustomer = counter.getNextCustomer();
+    Customer nextEntranceCustomer = shop.getNextEntranceCustomer();
+
+    // If nextCustomer == null, then nextEntranceCustomer must be null too.
     if (nextCustomer == null) {
       return new Event[] { departureEvent };
     }
-    
-    return new Event[] {
-        departureEvent,
-        new ServiceBeginEvent(getTime(), shop, nextCustomer, counter)
-    };
+
+    return nextEntranceCustomer == null
+        ? new Event[] {
+            departureEvent,
+            new ServiceBeginEvent(getTime(), shop, nextCustomer, counter)
+        }
+        : new Event[] {
+            departureEvent,
+            new ServiceBeginEvent(getTime(), shop, nextCustomer, counter),
+            new JoinCounterQueueEvent(getTime(), shop, nextEntranceCustomer, 
+                counter)
+        };
   }
 
   @Override

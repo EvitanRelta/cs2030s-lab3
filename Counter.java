@@ -27,6 +27,10 @@ public class Counter implements Comparable<Counter> {
     return queue.isFull();
   }
 
+  public boolean hasQueueLengthZero() {
+    return queue.length() == 0;
+  }
+
   public void joinQueue(Customer customer) {
     queue.enq(customer);
   }
