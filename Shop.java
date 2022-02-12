@@ -17,7 +17,7 @@ public class Shop {
 
   public Counter getCounterToJoin() {
     Counter counter = counters.min();
-    return counter.hasFullQueue()
+    return !counter.isAvailable() && counter.hasFullQueue()
       ? null
       : counter;
   }
