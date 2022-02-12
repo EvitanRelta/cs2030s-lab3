@@ -37,7 +37,7 @@ public class Counter implements Comparable<Counter> {
 
   @Override
   public String toString() {
-    return String.format("s %s", customer, queue);
+    return String.format("S%s %s", id, queue);
   }
 
   @Override
