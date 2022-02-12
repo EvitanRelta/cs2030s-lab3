@@ -23,6 +23,14 @@ public class Counter implements Comparable<Counter> {
     customer = null;
   }
 
+  public void joinQueue(Customer customer) {
+    queue.enq(customer);
+  }
+
+  public Customer getNextCustomer() {
+    return queue.deq();
+  }
+
   @Override
   public String toString() {
     return "S" + id;
