@@ -14,28 +14,38 @@ class ArrivalEvent extends Event {
   @Override
   public Event[] simulate() {
     if (shop.hasEmptyEntranceQueue()) {
-      Counter counter = shop.getAvailableCounter();
+      Counter counter = shop.getCounterToJoin();
 
-      if (counter != null) {
-        return new Event[] {
-          new ServiceBeginEvent(getTime(), shop, customer, counter)
+      return counter == null
+        ? new Event[] {
+            new JoinEntranceQueueEvent(getTime(), shop, customer)
+        }
+        : counter.isAvailable()
+        ? new Event[] {
+            new ServiceBeginEvent(getTime(), shop, customer, counter)
+        }
+        : new Event[] {
+            new JoinCounterQueueEvent(getTime(), shop, customer, counter)
         };
-      }
     } else if (shop.hasFullEntranceQueue()) {
       return new Event[] {
-        new DepartureEvent(getTime(), shop, customer)
+          new DepartureEvent(getTime(), shop, customer)
       };
     }
 
     return new Event[] {
-      new JoinEntranceQueueEvent(getTime(), shop, customer)
+        new JoinEntranceQueueEvent(getTime(), shop, customer)
     };
   }
 
   @Override
   public String toString() {
     return super.toString()
-      + String.format(": %s arrived %s", customer, shop.getEntranceQueueString());
+      + String.format(
+          ": %s arrived %s",
+          customer,
+          shop.getEntranceQueueString()
+      );
   }
 }
 

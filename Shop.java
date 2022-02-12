@@ -2,25 +2,24 @@
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
 public class Shop {
-  private final Counter[] counters;
+  private final Array<Counter> counters;
   private final Queue<Customer> entranceQueue;
 
-  public Shop(int numOfCounters, int entranceQueueLength) {
-    this.counters = new Counter[numOfCounters];
+  public Shop(int numOfCounters, int entranceQueueLength,
+      int counterQueueLength) {
+    this.counters = new Array<Counter>(numOfCounters);
     this.entranceQueue = new Queue<Customer>(entranceQueueLength);
 
     for (int i = 0; i < numOfCounters; i++) {
-      counters[i] = new Counter(i);
+      counters.set(i, new Counter(i, counterQueueLength));
     }
   }
 
-  public Counter getAvailableCounter() {
-    for (Counter counter : counters) {
-      if (counter.isAvailable()) {
-        return counter;
-      }
-    }
-    return null;
+  public Counter getCounterToJoin() {
+    Counter counter = counters.min();
+    return counter.hasFullQueue()
+      ? null
+      : counter;
   }
   public boolean hasEmptyEntranceQueue() {
     return entranceQueue.isEmpty();

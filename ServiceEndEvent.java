@@ -17,7 +17,10 @@ class ServiceEndEvent extends Event {
   @Override
   public Event[] simulate() {
     counter.endService();
-    Customer nextCustomer = shop.getNextEntranceCustomer();
+    Customer nextCustomer = counter.getNextCustomer();
+    nextCustomer = nextCustomer != null
+        ? nextCustomer
+        : shop.getNextEntranceCustomer();
     DepartureEvent departureEvent = new DepartureEvent(getTime(), shop,
         customer);
 

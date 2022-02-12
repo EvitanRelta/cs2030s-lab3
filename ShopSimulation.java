@@ -9,7 +9,7 @@ class ShopSimulation extends Simulation {
 
   public ShopSimulation(Scanner sc) {
     customers = new Customer[sc.nextInt()];
-    Shop shop = new Shop(sc.nextInt(), sc.nextInt());
+    Shop shop = new Shop(sc.nextInt(), sc.nextInt(), sc.nextInt());
     
     for (int i = 0; i < customers.length; i++) {
       customers[i] = new Customer(i, sc.nextDouble(), sc.nextDouble());

@@ -6,7 +6,8 @@ class JoinCounterQueueEvent extends Event {
   private final Customer customer;
   private final Counter counter;
 
-  public JoinCounterQueueEvent(double time, Shop shop, Customer customer, Counter counter) {
+  public JoinCounterQueueEvent(double time, Shop shop, Customer customer,
+      Counter counter) {
     super(time);
     this.shop = shop;
     this.customer = customer;
@@ -23,7 +24,11 @@ class JoinCounterQueueEvent extends Event {
   @Override
   public String toString() {
     return super.toString()
-      + String.format(": %s joined shop queue %s", customer, shop.getEntranceQueueString());
+        + String.format(
+            ": %s joined counter queue (at %s)",
+            customer,
+            counter
+        );
   }
 }
 
