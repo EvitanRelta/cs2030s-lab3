@@ -1,6 +1,4 @@
 /**
- * The Array<T> for CS2030S 
- *
  * @author Tan Zong Zhi, Shaun (Group 16A)
  * @version CS2030S AY21/22 Semester 2
  */
