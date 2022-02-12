@@ -23,6 +23,10 @@ public class Counter implements Comparable<Counter> {
     customer = null;
   }
 
+  public boolean hasFullQueue() {
+    return queue.isFull();
+  }
+
   public void joinQueue(Customer customer) {
     queue.enq(customer);
   }
