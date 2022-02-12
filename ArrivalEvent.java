@@ -28,7 +28,7 @@ class ArrivalEvent extends Event {
     }
 
     return new Event[] {
-      new JoinQueueEvent(getTime(), shop, customer)
+      new JoinEntranceQueueEvent(getTime(), shop, customer)
     };
   }
 
