@@ -16,18 +16,18 @@ class ArrivalEvent extends Event {
     if (shop.hasEmptyEntranceQueue()) {
       Counter counter = shop.getCounterToJoin();
 
-      return counter == null
-        ? new Event[] {
-            new JoinEntranceQueueEvent(getTime(), shop, customer)
-        }
-        : counter.isAvailable()
-        ? new Event[] {
-            new ServiceBeginEvent(getTime(), shop, customer, counter)
-        }
-        : new Event[] {
-            new JoinCounterQueueEvent(getTime(), shop, customer, counter)
-        };
-    } else if (shop.hasFullEntranceQueue()) {
+      if (counter != null) {
+        return counter.isAvailable()
+            ? new Event[] {
+                new ServiceBeginEvent(getTime(), shop, customer, counter)
+            }
+            : new Event[] {
+                new JoinCounterQueueEvent(getTime(), shop, customer, counter)
+            };
+      }
+    }
+
+    if (shop.hasFullEntranceQueue()) {
       return new Event[] {
           new DepartureEvent(getTime(), shop, customer)
       };
