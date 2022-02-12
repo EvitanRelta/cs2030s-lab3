@@ -9,8 +9,8 @@ class Array<T extends Comparable<T>> {
     // The only way we can put an object into array is through
     // the method set() and we only put object of type T inside.
     // So it is safe to cast `Object[]` to `T[]`.
-    @SuppressWarnings("unchecked")
-    T[] array = (T[]) new Object[size];
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    T[] array = (T[]) new Comparable[size];
     this.array = array;
   }
 
