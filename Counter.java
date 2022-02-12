@@ -4,7 +4,7 @@
 public class Counter implements Comparable<Counter> {
   private final int id;
   private Customer customer;
-  private Queue<Customer> queue;
+  private final Queue<Customer> queue;
 
   public Counter(int id, int queueLength) {
     this.id = id;
