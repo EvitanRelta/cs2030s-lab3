@@ -21,18 +21,23 @@ public class Shop {
       ? null
       : counter;
   }
+
   public boolean hasEmptyEntranceQueue() {
     return entranceQueue.isEmpty();
   }
+
   public boolean hasFullEntranceQueue() {
     return entranceQueue.isFull();
   }
+
   public String getEntranceQueueString() {
     return entranceQueue.toString();
   }
+
   public void joinEntranceQueue(Customer customer) {
     entranceQueue.enq(customer);
   }
+
   public Customer getNextEntranceCustomer() {
     return entranceQueue.deq();
   }
