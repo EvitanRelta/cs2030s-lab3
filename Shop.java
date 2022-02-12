@@ -5,8 +5,8 @@ public class Shop {
   private final Array<Counter> counters;
   private final Queue<Customer> entranceQueue;
 
-  public Shop(int numOfCounters, int entranceQueueLength,
-      int counterQueueLength) {
+  public Shop(int numOfCounters, int counterQueueLength, 
+      int entranceQueueLength) {
     this.counters = new Array<Counter>(numOfCounters);
     this.entranceQueue = new Queue<Customer>(entranceQueueLength);
 
