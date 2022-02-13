@@ -46,9 +46,23 @@ class Counter implements Comparable<Counter> {
 
   @Override
   public int compareTo(Counter counter) {
-    return this.queue.length() < counter.queue.length()
-        || (this.isAvailable() && !counter.isAvailable())
-        || this.id < counter.id
+    if (this.isAvailable() && counter.isAvailable()) {
+      return this.id < counter.id
+        ? -1
+        : 1;
+    }
+    if (this.isAvailable() && !counter.isAvailable()) {
+      return -1;
+    }
+    if (!this.isAvailable() && counter.isAvailable()) {
+      return 1;
+    }
+    if (this.queue.length() != counter.queue.length()) {
+      return this.queue.length() < counter.queue.length()
+        ? -1
+        : 1;
+    }
+    return this.id < counter.id
       ? -1
       : 1;
   }
