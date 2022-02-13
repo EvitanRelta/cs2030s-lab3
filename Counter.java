@@ -1,7 +1,7 @@
 /**
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
-public class Counter implements Comparable<Counter> {
+class Counter implements Comparable<Counter> {
   private final int id;
   private Customer customer;
   private final Queue<Customer> queue;

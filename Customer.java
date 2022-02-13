@@ -1,7 +1,7 @@
 /**
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
-public class Customer {
+class Customer {
   private final int id;
   private final double arrivalTime;
   private final double serviceTime;

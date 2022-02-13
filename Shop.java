@@ -1,7 +1,7 @@
 /**
  * @author Tan Zong Zhi, Shaun (Group 16A)
  */
-public class Shop {
+class Shop {
   private final Array<Counter> counters;
   private final Queue<Customer> entranceQueue;
 
